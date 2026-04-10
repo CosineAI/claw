@@ -1,0 +1,34 @@
+{
+  "id": "cosine-inference",
+  "name": "Cosine Inference",
+  "description": "Cosine inference provider plugin for OpenClaw",
+  "providers": ["cosine"],
+  "providerAuthEnvVars": {
+    "cosine": [
+      "COSINE_AUTH_TOKEN",
+      "COSINE_AUTH_REFRESH_TOKEN",
+      "COSINE_AUTH_EXPIRY",
+      "COSINE_AUTH_USER_ID",
+      "COSINE_AUTH_TEAM_ID",
+      "COSINE_AUTH_TEAM_NAME",
+      "COSINE_AUTH_TEAM_SLUG"
+    ]
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "cosine",
+      "method": "oauth",
+      "choiceId": "cosine",
+      "choiceLabel": "Cosine OAuth",
+      "choiceHint": "Browser sign-in for Cosine inference",
+      "groupId": "cosine",
+      "groupLabel": "Cosine",
+      "groupHint": "OAuth via api.cosine.sh"
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
