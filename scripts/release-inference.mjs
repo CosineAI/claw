@@ -28,12 +28,13 @@ function run(command, args, options = {}) {
 function printUsage() {
   console.log(
     [
-      "Usage: node scripts/release-inference.mjs [--dry-run] [--tag <dist-tag>] [--skip-checks]",
+      "Usage: node scripts/release-inference.mjs [--dry-run] [--tag <dist-tag>] [--skip-checks] [--provenance]",
       "",
       "Options:",
       "  --dry-run       Run npm publish with --dry-run",
       "  --tag <tag>     npm dist-tag to publish under (default: latest)",
       "  --skip-checks   Skip build/test preflight",
+      "  --provenance    Enable npm provenance when publishing from a supported CI/OIDC environment",
       "  --help          Show this help",
       "",
       "Examples:",
@@ -47,6 +48,7 @@ function printUsage() {
 const args = process.argv.slice(2);
 let dryRun = false;
 let skipChecks = false;
+let provenance = false;
 let tag = "latest";
 
 for (let index = 0; index < args.length; index += 1) {
@@ -61,6 +63,10 @@ for (let index = 0; index < args.length; index += 1) {
   }
   if (arg === "--skip-checks") {
     skipChecks = true;
+    continue;
+  }
+  if (arg === "--provenance") {
+    provenance = true;
     continue;
   }
   if (arg === "--tag") {
@@ -89,11 +95,15 @@ const publishArgs = ["publish", "--tag", tag];
 if (dryRun) {
   publishArgs.push("--dry-run");
 }
+if (provenance) {
+  publishArgs.push("--provenance");
+}
 
 console.log(
   [
     `Publishing @cosineai/claw-inference from ${packageDir}`,
     `npm tag: ${tag}`,
+    `provenance: ${provenance ? "enabled" : "disabled"}`,
     dryRun ? "mode: dry-run" : "mode: publish",
   ].join("\n"),
 );

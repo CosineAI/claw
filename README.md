@@ -40,4 +40,10 @@ Manual release helpers:
 pnpm release:inference:dry-run
 pnpm release:inference
 pnpm release:inference -- --tag beta
+pnpm release:inference -- --provenance
 ```
+
+Notes:
+
+- local/manual npm publishes should use the default behavior with provenance disabled
+- `--provenance` should only be used in a supported CI/OIDC environment
